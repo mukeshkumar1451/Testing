@@ -1,0 +1,216 @@
+[{
+    "dropDownCode" : "Category",
+    "dropDownValue" : "Requirements",
+    "remarks" : "Requirements"
+},{
+   
+    "dropDownCode" : "Category",
+    "dropDownValue" : "Design",
+    "remarks" : "Design"
+},{
+    
+    "dropDownCode" : "Category",
+    "dropDownValue" : "Execution",
+    "remarks" : "Execution"
+},{
+   
+    "dropDownCode" : "Category",
+    "dropDownValue" : "Story",
+    "remarks" : "Story"
+},{
+   
+    "dropDownCode" : "Category",
+    "dropDownValue" : "Defects",
+    "remarks" : "Defects"
+},{
+   
+    "dropDownCode" : "Calculation_Type",
+    "dropDownValue" : "Percentage",
+    "remarks" : "Percentage"
+},{
+    
+    "dropDownCode" : "Calculation_Type",
+    "dropDownValue" : "N/A",
+    "remarks" : "N/A"
+},{
+    
+    "dropDownCode" : "Data_Source",
+    "dropDownValue" : "Jira",
+    "remarks" : "Jira"
+},{
+   
+    "dropDownCode" : "Data_Source",
+    "dropDownValue" : "alm",
+    "remarks" : "alm"
+},{
+  
+    "dropDownCode" : "Data_Source",
+    "dropDownValue" : "zephyr",
+    "remarks" : "zephyr"
+},{
+   
+    "dropDownCode" : "Data_Source",
+    "dropDownValue" : "rally",
+    "remarks" : "rally"
+},{
+   
+    "dropDownCode" : "Data_Source",
+    "dropDownValue" : "git",
+    "remarks" : "git"
+},{
+   
+    "dropDownCode" : "Data_Source",
+    "dropDownValue" : "service",
+    "remarks" : "service"
+},{
+    
+    "dropDownCode" : "Data_Source",
+    "dropDownValue" : "bots",
+    "remarks" : "bots"
+},{
+  
+    "dropDownCode" : "Data_Source",
+    "dropDownValue" : "xray",
+    "remarks" : "xray"
+},{
+   
+    "dropDownCode" : "Data_Source",
+    "dropDownValue" : "jenkins",
+    "remarks" : "jenkins"
+},{
+   
+    "dropDownCode" : "Data_Source",
+    "dropDownValue" : "zephyrscale",
+    "remarks" : "zephyrscale"
+},{
+    
+    "dropDownCode" : "TrendBy_Values",
+    "dropDownValue" : "Days",
+    "remarks" : "Days"
+},{
+    
+    "dropDownCode" : "TrendBy_Values",
+    "dropDownValue" : "Weeks",
+    "remarks" : "Weeks"
+},{
+   
+    "dropDownCode" : "TrendBy_Values",
+    "dropDownValue" : "Months",
+    "remarks" : "Months"
+},{
+    
+    "dropDownCode" : "TrendBy_Values",
+    "dropDownValue" : "Years",
+    "remarks" : "Years"
+},{
+   
+    "dropDownCode" : "Custom_Function_Name",
+    "dropDownValue" : "jira_defect_ageing",
+    "remarks" : "jira_defect_ageing"
+},{
+    
+    "dropDownCode" : "Custom_Function_Name",
+    "dropDownValue" : "jira_defect_ageing_by_drops",
+    "remarks" : "jira_defect_ageing_by_drops"
+},{
+    
+    "dropDownCode" : "Function_Name",
+    "dropDownValue" : "count",
+    "remarks" : "count"
+},{
+   
+    "dropDownCode" : "Function_Name",
+    "dropDownValue" : "sum",
+    "remarks" : "sum"
+},{
+  
+    "dropDownCode" : "Function_Name",
+    "dropDownValue" : "max",
+    "remarks" : "max"
+},{
+    
+    "dropDownCode" : "Function_Name",
+    "dropDownValue" : "maxAnd",
+    "remarks" : "maxAnd"
+},{
+    
+    "dropDownCode" : "Function_Name",
+    "dropDownValue" : "min",
+    "remarks" : "min"
+},{
+   
+    "dropDownCode" : "Function_Name",
+    "dropDownValue" : "minAnd",
+    "remarks" : "minAnd"
+},{
+    
+    "dropDownCode" : "Function_Name",
+    "dropDownValue" : "sumISO",
+    "remarks" : "sumISO"
+},{
+    
+    "dropDownCode" : "Function_Name",
+    "dropDownValue" : "sumISOAnd",
+    "remarks" : "sumISOAnd"
+},{
+    
+    "dropDownCode" : "Function_Name",
+    "dropDownValue" : "sumISODiff",
+    "remarks" : "sumISODiff"
+},{
+    
+    "dropDownCode" : "Function_Name",
+    "dropDownValue" : "sumISODiffAnd",
+    "remarks" : "sumISODiffAnd"
+},{
+    
+    "dropDownCode" : "Function_Name",
+    "dropDownValue" : "countAnd",
+    "remarks" : "countAnd"
+},{
+    
+    "dropDownCode" : "Function_Name",
+    "dropDownValue" : "sumAnd",
+    "remarks" : "sumAnd"
+},{
+    
+    "dropDownCode" : "Function_Name",
+    "dropDownValue" : "avgAnd",
+    "remarks" : "avgAnd"
+},{
+    
+    "dropDownCode" : "Function_Name",
+    "dropDownValue" : "avg",
+    "remarks" : "avg"
+},{
+    
+    "dropDownCode" : "Custom_Function_Name",
+    "dropDownValue" : "jira_defect_ageing_by_drops_all_status",
+    "remarks" : "jira_defect_ageing_by_drops_all_status"
+},{
+    
+    "dropDownCode" : "Custom_Function_Name",
+    "dropDownValue" : "jira_defect_ageing_by_priority",
+    "remarks" : "jira_defect_ageing_by_priority"
+},{
+    
+    "dropDownCode" : "Custom_Function_Name",
+    "dropDownValue" : "jira_defect_ageing_per_dev",
+    "remarks" : "jira_defect_ageing_per_dev"
+},{
+    
+    "dropDownCode" : "Custom_Function_Name",
+    "dropDownValue" : "jira_open_closed_defect_count",
+    "remarks" : "jira_open_closed_defect_count"
+},{
+    
+    "dropDownCode" : "Custom_Function_Name",
+    "dropDownValue" : "custom_stc_manual",
+    "remarks" : "custom_stc_manual"
+},{
+   
+    "dropDownCode" : "Custom_Function_Name",
+    "dropDownValue" : "custom_table_stc",
+    "remarks" : "custom_table_stc"
+}
+]
