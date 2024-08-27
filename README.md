@@ -1,3 +1,6 @@
+Error processing document: id
+
+
 private <T> void insertData(String collectionName, Class<T> pojoClass, List<T> data) {
     if (data != null && !data.isEmpty()) {
         for (T item : data) {
