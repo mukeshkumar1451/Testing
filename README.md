@@ -1,5 +1,9 @@
-Error processing document: id
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
+private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+private static final ZoneId TIME_ZONE = ZoneId.of("Asia/Kolkata");
 
 private <T> void insertData(String collectionName, Class<T> pojoClass, List<T> data) {
     if (data != null && !data.isEmpty()) {
@@ -9,12 +13,12 @@ private <T> void insertData(String collectionName, Class<T> pojoClass, List<T> d
                 String lastUpdatedField = "lastUpdated";
                 Object lastUpdatedValue = getFieldValue(item, lastUpdatedField);
 
-                // Convert the lastUpdated value to target format
                 String formattedLastUpdated = null;
                 if (lastUpdatedValue instanceof String) {
                     String lastUpdatedString = (String) lastUpdatedValue;
-                    LocalDateTime localDateTime = LocalDateTime.parse(lastUpdatedString, DATE_FORMATTER);
-                    formattedLastUpdated = localDateTime.format(DATE_FORMATTER);
+                    // Parse and convert the `lastUpdated` value
+                    ZonedDateTime localDateTime = ZonedDateTime.parse(lastUpdatedString, DATE_FORMATTER.withZone(TIME_ZONE));
+                    formattedLastUpdated = localDateTime.withZoneSameInstant(TIME_ZONE).format(DATE_FORMATTER);
                     setFieldValue(item, lastUpdatedField, formattedLastUpdated);
                 }
 
@@ -25,8 +29,10 @@ private <T> void insertData(String collectionName, Class<T> pojoClass, List<T> d
                 if (existingItem != null) {
                     // Document exists, check if the `lastUpdated` value has changed
                     String existingLastUpdated = (String) getFieldValue(existingItem, lastUpdatedField);
+                    ZonedDateTime existingDateTime = ZonedDateTime.parse(existingLastUpdated, DATE_FORMATTER.withZone(TIME_ZONE));
+                    ZonedDateTime newDateTime = ZonedDateTime.parse(formattedLastUpdated, DATE_FORMATTER.withZone(TIME_ZONE));
 
-                    if (!formattedLastUpdated.equals(existingLastUpdated)) {
+                    if (newDateTime.isAfter(existingDateTime)) {
                         // Update the existing document with the new `lastUpdated` value
                         Update update = new Update().set(lastUpdatedField, formattedLastUpdated);
                         targetMongoTemplate.updateFirst(query, update, collectionName);
@@ -52,4 +58,3 @@ private <T> void insertData(String collectionName, Class<T> pojoClass, List<T> d
         System.out.println("Successfully processed " + data.size() + " documents in collection " + collectionName);
     }
 }
-
