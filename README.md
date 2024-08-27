@@ -19,7 +19,7 @@ private <T> void insertData(String collectionName, Class<T> pojoClass, List<T> d
                 }
 
                 // Check if the document already exists in the target collection
-                Query query = new Query().addCriteria(Criteria.where("id").is(getFieldValue(item, "id")));
+                Query query = new Query().addCriteria(Criteria.where("_id").is(getFieldValue(item, "_id")));
                 T existingItem = targetMongoTemplate.findOne(query, pojoClass, collectionName);
 
                 if (existingItem != null) {
@@ -40,6 +40,10 @@ private <T> void insertData(String collectionName, Class<T> pojoClass, List<T> d
                     System.out.println("Document inserted into collection " + collectionName);
                 }
 
+            } catch (NoSuchFieldException e) {
+                System.err.println("Error processing document: Field not found - " + e.getMessage());
+            } catch (IllegalAccessException e) {
+                System.err.println("Error processing document: Illegal access - " + e.getMessage());
             } catch (Exception e) {
                 System.err.println("Error processing document: " + e.getMessage());
             }
@@ -48,3 +52,4 @@ private <T> void insertData(String collectionName, Class<T> pojoClass, List<T> d
         System.out.println("Successfully processed " + data.size() + " documents in collection " + collectionName);
     }
 }
+
