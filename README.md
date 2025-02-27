@@ -1,243 +1,215 @@
-POST methods https://dev.azure.com/NeuroAITeam/OracleHCM/_apis/wit/wiql?api-version=7.1
-Body  {
-    "query": "Select [System.Id] From WorkItems"
-}
+package com.cognizant.collector.jirazephyr.component;
 
-Response
+import com.cognizant.collector.jirazephyr.beans.zephyrScale.*;
+import com.cognizant.collector.jirazephyr.client.ZephyrClient;
+import com.cognizant.collector.jirazephyr.service.TestCaseService;
+import com.cognizant.collector.jirazephyr.service.ZephyrScaleTestRunService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import static com.cognizant.collector.jirazephyr.constants.Constant.PAGE_STARTS_AT;
+import static com.cognizant.collector.jirazephyr.constants.Constant.RESULTS_PER_PAGE;
 
-{
-    "queryType": "flat",
-    "queryResultType": "workItem",
-    "asOf": "2025-02-12T06:31:39.84Z",
-    "columns": [
-        {
-            "referenceName": "System.Id",
-            "name": "ID",
-            "url": "https://dev.azure.com/NeuroAITeam/_apis/wit/fields/System.Id"
-        }
-    ],
-    "workItems": [
-        {
-            "id": 1,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/1"
-        },
-        {
-            "id": 2,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/2"
-        },
-        {
-            "id": 3,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/3"
-        },
-        {
-            "id": 4,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/4"
-        },
-        {
-            "id": 5,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/5"
-        },
-        {
-            "id": 6,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/6"
-        },
-        {
-            "id": 7,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/7"
-        },
-        {
-            "id": 8,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/8"
-        },
-        {
-            "id": 9,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/9"
-        },
-        {
-            "id": 10,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/10"
-        },
-        {
-            "id": 11,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/11"
-        },
-        {
-            "id": 12,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/12"
-        },
-        {
-            "id": 13,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/13"
-        },
-        {
-            "id": 14,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/14"
-        },
-        {
-            "id": 15,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/15"
-        },
-        {
-            "id": 16,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/16"
-        },
-        {
-            "id": 17,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/17"
-        },
-        {
-            "id": 18,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/18"
-        },
-        {
-            "id": 19,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/19"
-        },
-        {
-            "id": 20,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/20"
-        },
-        {
-            "id": 21,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/21"
-        },
-        {
-            "id": 22,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/22"
-        },
-        {
-            "id": 24,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/24"
-        },
-        {
-            "id": 25,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/25"
-        },
-        {
-            "id": 26,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/26"
-        },
-        {
-            "id": 27,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/27"
-        },
-        {
-            "id": 28,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/28"
-        },
-        {
-            "id": 29,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/29"
-        },
-        {
-            "id": 32,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/32"
-        },
-        {
-            "id": 33,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/33"
-        },
-        {
-            "id": 34,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/34"
-        },
-        {
-            "id": 35,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/35"
-        },
-        {
-            "id": 36,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/36"
-        },
-        {
-            "id": 37,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/37"
-        },
-        {
-            "id": 38,
-            "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/38"
-        }
-    ]
-}
+@Slf4j
+@Component
+public class ZephyrScaleTestRunComponent {
+
+    @Value("${zephyrServer.token}")
+    public String token;
+
+    @Autowired
+    private ZephyrClient zephyrScaleClient;
+
+    @Autowired
+    private ZephyrScaleTestRunService testRunService;
+
+    @Autowired
+    private TestCaseService testCaseService;
+
+    public void getZephyrScaleTestRun(String projectKey) {
+        System.out.println("Entering into ZephyrScale TestRun Collection");
+        int maxResults = RESULTS_PER_PAGE;
+        int startAt = PAGE_STARTS_AT;
+        int totalSavedCount=0;
+        boolean isLast = false;
+        do {
+            TestExecutionResponse testExecutionInfo = zephyrScaleClient.getTestExecutions(token, projectKey, maxResults, startAt);
+            System.out.println("Test Execution Data: " + testExecutionInfo);
+            Project project = zephyrScaleClient.getProject(token, projectKey);
+            System.out.println("Project id: " + project.getId());
+            log.info("Project Key - " + projectKey + " with ProjectId - " + project.getId());
+            log.info("Zephyrscale data starting from " + startAt + " ending with " + (startAt + maxResults));
+            List<ZephyrTestRun> zephyrScaleTestExecutions = testExecutionInfo.getValues().stream()
+                    .filter(zephyrTestRun -> project.getId() == (zephyrTestRun.getProject().getId()))
+                    .map(zephyrTestRun -> {
+                        ZephyrTestRun zephyrScaleTestExecution = new ZephyrTestRun();
+                        zephyrScaleTestExecution.setId(zephyrTestRun.getId());
 
 
 
-GET method https://dev.azure.com/NeuroAITeam/_apis/wit/workitems/1
-Response
+                        // Fetching test case details using self URL
+                        if (zephyrTestRun.getTestCase() != null) {
+                            log.info("Test case is present for test execution: {}", zephyrTestRun.getKey());
+                            if (zephyrTestRun.getTestCase().getSelf() != null) {
+                                log.info("Test case self URL: {}", zephyrTestRun.getTestCase().getSelf());
+                                TestCase testCaseInfo = testCaseService.getTestCaseInfo(zephyrTestRun.getTestCase().getSelf(), token);
+                                log.info("Test case info: {}", testCaseInfo);
+                                zephyrScaleTestExecution.setTestCaseId(testCaseInfo.getId());
+                                zephyrScaleTestExecution.setTestCaseName(testCaseInfo.getName());
+                                zephyrScaleTestExecution.setType(testCaseInfo.getCustomFields().getType());
+                                zephyrScaleTestExecution.setTestcaseKey(testCaseInfo.getKey());
+                            } else {
+                                log.warn("Test case self URL is null for test execution: {}", zephyrTestRun.getKey());
+                            }
+                        } else {
+                            log.warn("Test case is null for test execution: {}", zephyrTestRun.getKey());
+                        }
 
-{
-    "id": 1,
-    "rev": 3,
-    "fields": {
-        "System.AreaPath": "OracleHCM",
-        "System.TeamProject": "OracleHCM",
-        "System.IterationPath": "OracleHCM\\Sprint 1",
-        "System.WorkItemType": "User Story",
-        "System.State": "New",
-        "System.Reason": "New",
-        "System.CreatedDate": "2025-01-20T10:20:05.23Z",
-        "System.CreatedBy": {
-            "displayName": "Kumar, Mukesh (Cognizant)",
-            "url": "https://spsprodeau1.vssps.visualstudio.com/A55ee2702-37b4-457d-a3ac-dbad41a318a5/_apis/Identities/8fd86c10-83f0-4cb0-b23d-9c6447d23a26",
-            "_links": {
-                "avatar": {
-                    "href": "https://dev.azure.com/NeuroAITeam/_apis/GraphProfile/MemberAvatars/aad.NmM0ZWZiZjEtZmJhOS03MjZmLTlkNGUtZWJmNGZmYzVhZTA1"
+                        // Environment details
+                        Environment environmentDetails = null;
+                        if (zephyrTestRun.getEnvironment() != null) {
+                            environmentDetails = zephyrScaleClient.getEnvironments(token, String.valueOf(zephyrTestRun.getEnvironment().getId()));
+                            if (environmentDetails == null) {
+                                log.warn("Environment details are null for environment ID: {}", zephyrTestRun.getEnvironment().getId());
+                            }
+                        } else {
+                            log.warn("Environment is null for test execution: {}", zephyrTestRun.getKey());
+                        }
+                        zephyrScaleTestExecution.setEnvironment(environmentDetails != null ? environmentDetails.getName() : null);
+                        // Status details
+                        TestExecutionStatus executionstatusDetails = null;
+                        if (zephyrTestRun.getTestExecutionStatus() != null) {
+                            executionstatusDetails = zephyrScaleClient.getTestExecutionStatus(token, String.valueOf(zephyrTestRun.getTestExecutionStatus().getId()));
+                            if (executionstatusDetails == null) {
+                                log.warn("Status details are null for test execution status ID: {}", zephyrTestRun.getTestExecutionStatus().getId());
+                            }
+                        } else {
+                            log.warn("Test execution status is null for test case: {}", zephyrTestRun.getKey());
+                        }
+                        if(executionstatusDetails != null) {
+                            zephyrScaleTestExecution.setTestExecutionStatusName(executionstatusDetails.getName());
+                            zephyrScaleTestExecution.setTestExecutionStatusId(executionstatusDetails.getId());
+                        }else{
+                            zephyrScaleTestExecution.setTestExecutionStatusName(null);
+                            zephyrScaleTestExecution.setTestExecutionStatusId(-1);
+                        }
+                        // Project details
+                        zephyrScaleTestExecution.setJiraProjectId(project.getJiraProjectId());
+                        zephyrScaleTestExecution.setProjectId(project.getId());
+                        zephyrScaleTestExecution.setProjectKey(project.getKey());
+                        zephyrScaleTestExecution.setKey(zephyrTestRun.getKey());
+                        zephyrScaleTestExecution.setActualEndDate(zephyrTestRun.getActualEndDate());
+                        zephyrScaleTestExecution.setExecutionTime(zephyrTestRun.getExecutionTime());
+                        zephyrScaleTestExecution.setExecutedById(zephyrTestRun.getExecutedById());
+                        zephyrScaleTestExecution.setAssignedToId(zephyrTestRun.getAssignedToId());
+                        zephyrScaleTestExecution.setComment(zephyrTestRun.getComment());
+                        zephyrScaleTestExecution.setAutomated(zephyrTestRun.isAutomated());
+                        zephyrScaleTestExecution.setExecutedOn(zephyrTestRun.getExecutedOn());
+                        // Test cycle details
+                        TestCycle testCycleDetails = null;
+                        if (zephyrTestRun.getTestCycle() != null) {
+                            String testCycleId = String.valueOf(zephyrTestRun.getTestCycle().getId());
+                            log.info("Fetching TestCycle details for test cycle ID: {}", testCycleId);
+                            testCycleDetails = zephyrScaleClient.getTestCycle(token, testCycleId);
+                            if (testCycleDetails == null) {
+                                log.warn("TestCycle details are null for test cycle ID: {}", testCycleId);
+                            }
+                        } else {
+                            log.warn("Test cycle is null for test execution: {}", zephyrTestRun.getKey());
+                        }
+                        if (testCycleDetails != null) {
+                            zephyrScaleTestExecution.setCycleKey(testCycleDetails.getKey());
+                            zephyrScaleTestExecution.setCycleName(testCycleDetails.getName());
+                            if (testCycleDetails.getStatus() != null) {
+                                Status statusDetails = zephyrScaleClient.getStatus(token, String.valueOf(testCycleDetails.getStatus().getId()));
+                                if (statusDetails != null && statusDetails.getName() != null) {
+                                    zephyrScaleTestExecution.setCycleStatusName(statusDetails.getName());
+                                } else {
+                                    log.warn("Status or status name is null for test cycle ID: {}", testCycleDetails.getId());
+                                    zephyrScaleTestExecution.setCycleStatusName(null);
+                                }
+                            } else {
+                                log.warn("Status is null for test cycle ID: {}", testCycleDetails.getId());
+                                zephyrScaleTestExecution.setCycleStatusName(null);
+                            }
+                            zephyrScaleTestExecution.setCycleKey(testCycleDetails.getKey());
+                            zephyrScaleTestExecution.setCycleName(testCycleDetails.getName());
+                            zephyrScaleTestExecution.setCycleStatusId(String.valueOf(testCycleDetails.getStatus().getId()));
+                            zephyrScaleTestExecution.setTestCycleFolder(String.valueOf(testCycleDetails.getFolder()));
+                            zephyrScaleTestExecution.setDescription(testCycleDetails.getDescription());
+                            zephyrScaleTestExecution.setPlannedStartDate(testCycleDetails.getPlannedStartDate());
+                            zephyrScaleTestExecution.setPlannedEndDate(testCycleDetails.getPlannedEndDate());
+                            zephyrScaleTestExecution.setTestCycleOwner(testCycleDetails.getOwner());
+                            zephyrScaleTestExecution.setTestCycleLinks(testCycleDetails.getLinks());
+                          //  zephyrScaleTestExecution.setCycleComment(.getC);
+                        } else {
+                            zephyrScaleTestExecution.setCycleKey(null);
+                            zephyrScaleTestExecution.setCycleName(null);
+                            zephyrScaleTestExecution.setCycleStatusId(null);
+                           // zephyrScaleTestExecution.setCycleStatusName(null);
+                            zephyrScaleTestExecution.setTestCycleFolder(null);
+                            zephyrScaleTestExecution.setDescription(null);
+                            zephyrScaleTestExecution.setPlannedStartDate(null);
+                            zephyrScaleTestExecution.setPlannedEndDate(null);
+                            zephyrScaleTestExecution.setTestCycleOwner(null);
+                            zephyrScaleTestExecution.setTestCycleLinks(null);
+                        }
+                        return zephyrScaleTestExecution;
+                    }).collect(Collectors.toList());
+            List<ZephyrTestRun> testRunToSave = new ArrayList<>();
+            zephyrScaleTestExecutions.forEach(testExecution -> {
+                Optional<ZephyrTestRun> existingExecution = testRunService.findById(String.valueOf(testExecution.getId()));
+                if (existingExecution.isPresent()) {
+                    ZephyrTestRun existing = existingExecution.get();
+                    existing.setKey(testExecution.getKey());
+                    existing.setEnvironmentId(testExecution.getEnvironmentId());
+                    existing.setTestCaseName(testExecution.getTestCaseName());
+                    existing.setTestCaseId(testExecution.getTestCaseId());
+                    existing.setType(testExecution.getType());
+                    existing.setTestcaseKey(testExecution.getTestcaseKey());
+                    existing.setEnvironment(testExecution.getEnvironment());
+                    existing.setJiraProjectVersion(testExecution.getJiraProjectVersion());
+                    existing.setTestExecutionStatusId(testExecution.getTestExecutionStatusId());
+                    existing.setTestExecutionStatusName(testExecution.getTestExecutionStatusName());
+                    existing.setActualEndDate(testExecution.getActualEndDate());
+                    existing.setExecutionTime(testExecution.getExecutionTime());
+                    existing.setExecutedById(testExecution.getExecutedById());
+                    existing.setAssignedToId(testExecution.getAssignedToId());
+                    existing.setComment(testExecution.getComment());
+                    existing.setAutomated(testExecution.isAutomated());
+                    existing.setTestExecutionLinks(testExecution.getTestExecutionLinks());
+                    existing.setExecutedOn(testExecution.getExecutedOn());
+                    existing.setOSVersion(testExecution.getOSVersion());
+                    existing.setDeviceName(testExecution.getDeviceName());
+                    existing.setExecutionType(testExecution.getExecutionType());
+                    existing.setCycleKey(testExecution.getCycleKey());
+                    existing.setCycleName(testExecution.getCycleName());
+                    existing.setCycleStatusName(testExecution.getCycleStatusName());
+                    existing.setCycleStatusId(testExecution.getCycleStatusId());
+                    existing.setTestCycleFolder(testExecution.getTestCycleFolder());
+                    existing.setDescription(testExecution.getDescription());
+                    existing.setPlannedStartDate(testExecution.getPlannedStartDate());
+                    existing.setPlannedEndDate(testExecution.getPlannedEndDate());
+                    existing.setTestCycleOwner(testExecution.getTestCycleOwner());
+                    existing.setTestCycleLinks(testExecution.getTestCycleLinks());
+                    testRunToSave.add(existing);
+                } else {
+                    testRunToSave.add(testExecution);
                 }
-            },
-            "id": "8fd86c10-83f0-4cb0-b23d-9c6447d23a26",
-            "uniqueName": "899620@cognizant.com",
-            "imageUrl": "https://dev.azure.com/NeuroAITeam/_apis/GraphProfile/MemberAvatars/aad.NmM0ZWZiZjEtZmJhOS03MjZmLTlkNGUtZWJmNGZmYzVhZTA1",
-            "descriptor": "aad.NmM0ZWZiZjEtZmJhOS03MjZmLTlkNGUtZWJmNGZmYzVhZTA1"
-        },
-        "System.ChangedDate": "2025-01-20T10:34:02.89Z",
-        "System.ChangedBy": {
-            "displayName": "Kumar, Mukesh (Cognizant)",
-            "url": "https://spsprodeau1.vssps.visualstudio.com/A55ee2702-37b4-457d-a3ac-dbad41a318a5/_apis/Identities/8fd86c10-83f0-4cb0-b23d-9c6447d23a26",
-            "_links": {
-                "avatar": {
-                    "href": "https://dev.azure.com/NeuroAITeam/_apis/GraphProfile/MemberAvatars/aad.NmM0ZWZiZjEtZmJhOS03MjZmLTlkNGUtZWJmNGZmYzVhZTA1"
-                }
-            },
-            "id": "8fd86c10-83f0-4cb0-b23d-9c6447d23a26",
-            "uniqueName": "899620@cognizant.com",
-            "imageUrl": "https://dev.azure.com/NeuroAITeam/_apis/GraphProfile/MemberAvatars/aad.NmM0ZWZiZjEtZmJhOS03MjZmLTlkNGUtZWJmNGZmYzVhZTA1",
-            "descriptor": "aad.NmM0ZWZiZjEtZmJhOS03MjZmLTlkNGUtZWJmNGZmYzVhZTA1"
-        },
-        "System.CommentCount": 0,
-        "System.Title": "As a HR manager, I want to be able to view the employee's personal information such as name, address, contact details, and emergency contact details so that I can maintain accurate employee records",
-        "System.BoardColumn": "To Do",
-        "System.BoardColumnDone": false,
-        "Microsoft.VSTS.Common.StateChangeDate": "2025-01-20T10:20:05.23Z",
-        "Microsoft.VSTS.Common.Priority": 2,
-        "Microsoft.VSTS.Common.ValueArea": "Business",
-        "Custom.Release": "R_01",
-        "Custom.Module": "Human Resource",
-        "WEF_3E188281E5124C6380791D64EFEA5A7A_Kanban.Column": "To Do",
-        "WEF_3E188281E5124C6380791D64EFEA5A7A_Kanban.Column.Done": false,
-        "Microsoft.VSTS.Common.AcceptanceCriteria": "<div><span>The employee's personal information should be displayed on their profile page.<br></span><div>- The personal information should be editable by the HR manager.<br> </div><span>- The emergency contact details should include the name, relationship, and contact number of the employee's emergency contact.</span><br> </div>"
-    },
-    "_links": {
-        "self": {
-            "href": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/1"
-        },
-        "workItemUpdates": {
-            "href": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/1/updates"
-        },
-        "workItemRevisions": {
-            "href": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/1/revisions"
-        },
-        "workItemComments": {
-            "href": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/1/comments"
-        },
-        "html": {
-            "href": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_workitems/edit/1"
-        },
-        "workItemType": {
-            "href": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItemTypes/User%20Story"
-        },
-        "fields": {
-            "href": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/fields"
-        }
-    },
-    "url": "https://dev.azure.com/NeuroAITeam/c20d5bc7-162b-4441-b3df-a91e533237e1/_apis/wit/workItems/1"
+            });
+            testRunService.saveAll(testRunToSave);
+            totalSavedCount += testRunToSave.size();
+            log.info("Saved {} test cases in this batch, total saved so far: {}", testRunToSave.size(), totalSavedCount);
+            startAt += maxResults;
+            if (testExecutionInfo.getTotal() < startAt) {
+                isLast = true;
+            }
+            log.info("TestExecutions count from server : {}", zephyrScaleTestExecutions.size());
+        } while (!isLast);
+    }
 }
