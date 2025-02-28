@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import static com.cognizant.collector.jirazephyr.constants.Constant.PAGE_STARTS_AT;
@@ -51,18 +52,69 @@ public class ZephyrScaleTestRunComponent {
                         zephyrScaleTestExecution.setId(zephyrTestRun.getId());
 
 
+                        Folder folderDetails = null;
+                        if (zephyrTestRun.getFolder() != null) {
+                            folderDetails = zephyrScaleClient.getFolder(token, String.valueOf(zephyrTestRun.getFolder().getId()));
+                            System.out.println("Folder Details: " + folderDetails);
+                            if (folderDetails == null) {
+                                log.warn("Folder details are null for folder ID: {}", zephyrTestRun.getFolder().getId());
+                            }
+                        } else {
+                            log.warn("Folder is null for test case: {}", zephyrTestRun.getKey());
+                        }
+//
+//                        if (folderDetails != null) {
+//                            // Fetch folder hierarchy
+//                            List<String> folderHierarchy = new ArrayList<>();
+//                            folderHierarchy.add(folderDetails.getName());
+//                            Integer id = folderDetails.getParentId();
+//                            System.out.println("Parent id:" + id);
+//                            while (id != null && id > 0) {
+//                                Folder parentFolder = zephyrScaleClient.getFolder(token, String.valueOf(id));
+//                                if (parentFolder != null) {
+//                                    folderHierarchy.add(parentFolder.getName());
+//                                    id = parentFolder.getParentId();
+//                                } else {
+//                                    id = null;
+//                                }
+//                            }
+//
+//                            // Set folder hierarchy fields dynamically
+//                            Map<String, String> folderNames = zephyrScaleTestExecution.getFolderNames();
+//                            for (int i = 0; i < folderHierarchy.size(); i++) {
+//                                folderNames.put("folder" + (i + 1), folderHierarchy.get(folderHierarchy.size() - 1 - i));
+//                            }
+//                            zephyrScaleTestExecution.setFolderNames(folderNames);
+//                            String firstFolderName = folderNames.get("folder1");
+//                            zephyrScaleTestExecution.setFirstFolderName(firstFolderName);
+//                            zephyrScaleTestExecution.setLastFoldername(folderDetails.getName());
+//
+//                            // Print folder names outside of the map
+//                            for (int i = 0; i < folderHierarchy.size(); i++) {
+//                                System.out.println("folder" + (i + 1) + ": " + folderHierarchy.get(folderHierarchy.size() - 1 - i));
+//                            }
+//
+//                        } else {
+//                            zephyrScaleTestExecution.setLastFoldername(null);
+//                            zephyrScaleTestExecution.setFolderNames(null);
+//                        }
 
                         // Fetching test case details using self URL
                         if (zephyrTestRun.getTestCase() != null) {
                             log.info("Test case is present for test execution: {}", zephyrTestRun.getKey());
-                            if (zephyrTestRun.getTestCase().getSelf() != null) {
-                                log.info("Test case self URL: {}", zephyrTestRun.getTestCase().getSelf());
-                                TestCase testCaseInfo = testCaseService.getTestCaseInfo(zephyrTestRun.getTestCase().getSelf(), token);
-                                log.info("Test case info: {}", testCaseInfo);
-                                zephyrScaleTestExecution.setTestCaseId(testCaseInfo.getId());
-                                zephyrScaleTestExecution.setTestCaseName(testCaseInfo.getName());
-                                zephyrScaleTestExecution.setType(testCaseInfo.getCustomFields().getType());
-                                zephyrScaleTestExecution.setTestcaseKey(testCaseInfo.getKey());
+                            String selfUrl = zephyrTestRun.getTestCase().getSelf();
+                            if (selfUrl != null) {
+                                log.info("Test case self URL: {}", selfUrl);
+                                TestCase testCaseInfo = zephyrScaleClient.getTestCaseInfo(token, selfUrl);
+                                if (testCaseInfo != null) {
+                                    log.info("Test case info: {}", testCaseInfo);
+                                    zephyrScaleTestExecution.setTestCaseId(testCaseInfo.getId());
+                                    zephyrScaleTestExecution.setTestCaseName(testCaseInfo.getName());
+                                    zephyrScaleTestExecution.setType(testCaseInfo.getCustomFields().getType());
+                                    zephyrScaleTestExecution.setTestcaseKey(testCaseInfo.getKey());
+                                } else {
+                                    log.warn("Failed to fetch test case info for test execution: {}", zephyrTestRun.getKey());
+                                }
                             } else {
                                 log.warn("Test case self URL is null for test execution: {}", zephyrTestRun.getKey());
                             }
@@ -171,6 +223,8 @@ public class ZephyrScaleTestRunComponent {
                     existing.setTestCaseName(testExecution.getTestCaseName());
                     existing.setTestCaseId(testExecution.getTestCaseId());
                     existing.setType(testExecution.getType());
+                    existing.setFirstFolderName(testExecution.getFirstFolderName());
+                    existing.setLastFoldername(testExecution.getLastFoldername());
                     existing.setTestcaseKey(testExecution.getTestcaseKey());
                     existing.setEnvironment(testExecution.getEnvironment());
                     existing.setJiraProjectVersion(testExecution.getJiraProjectVersion());
